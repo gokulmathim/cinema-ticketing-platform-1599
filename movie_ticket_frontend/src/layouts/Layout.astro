@@ -1,0 +1,35 @@
+---
+import ThemeToggle from '../components/ThemeToggle.astro';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>CineBook | Book Movie Tickets Online</title>
+    <link rel="stylesheet" href="/src/assets/theme.css" />
+  </head>
+  <body>
+    <ThemeToggle />
+    <header style="width:100%;background:var(--color-primary);color:#fff;box-shadow:var(--shadow);position:sticky;top:0;z-index:900;">
+      <nav style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1.5rem;">
+        <a href="/" style="display:flex;align-items:center;font-weight:700;font-size:1.25rem;color:#fff;">
+          <span style="margin-right:.5rem;display:inline-block;background:var(--color-accent);width:2rem;height:2rem;border-radius:50%;"></span> CineBook
+        </a>
+        <div style="display:flex;gap:1.3rem;">
+          <a href="/movies" style="color:#fff;">Movies</a>
+          <a href="/account" style="color:#fff;">My Account</a>
+          <a href="/login" style="color:#fff;">Login</a>
+        </div>
+      </nav>
+    </header>
+    <main style="max-width:1200px;margin:2.5rem auto 2.5rem auto;padding:0 1rem;">
+      <slot />
+    </main>
+    <footer style="width:100%;background:var(--color-primary);color:#fff;text-align:center;padding:1.1rem 0;font-size:.95em;">
+      &copy; {new Date().getFullYear()} CineBook
+    </footer>
+  </body>
+</html>

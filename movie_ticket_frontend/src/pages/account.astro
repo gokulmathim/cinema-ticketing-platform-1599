@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+// In a real app, fetch bookings and user info via API
+const bookings = [
+  {
+    id: "AB123",
+    movieTitle: "Galactic Odyssey",
+    showtime: "2024-07-23T17:00",
+    seats: ["B3", "B4"],
+    total: 23.0,
+    status: "CONFIRMED"
+  }
+];
+---
+
+<Layout>
+  <section style="max-width:680px;margin:0 auto;">
+    <div class="card" style="margin-bottom:1.5rem;">
+      <h1 style="margin-bottom:.5rem;">My Bookings</h1>
+      {bookings.length === 0 ? (
+        <div>No bookings found.</div>
+      ) : (
+        <table style="width:100%;border-collapse:collapse;">
+          <thead>
+            <tr style="background:var(--color-surface);border-bottom:2px solid var(--color-primary);">
+              <th style="padding:.8rem;text-align:left;">Movie</th>
+              <th style="padding:.8rem;text-align:left;">Showtime</th>
+              <th style="padding:.8rem;text-align:left;">Seats</th>
+              <th style="padding:.8rem;text-align:left;">Total</th>
+              <th style="padding:.8rem;text-align:left;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {bookings.map(b => (
+              <tr>
+                <td style="padding:.7rem 0;">{b.movieTitle}</td>
+                <td style="padding:.7rem 0;">{new Date(b.showtime).toLocaleString()}</td>
+                <td style="padding:.7rem 0;">{b.seats.join(', ')}</td>
+                <td style="padding:.7rem 0;">${b.total.toFixed(2)}</td>
+                <td style="padding:.7rem 0;color:var(--color-success);font-weight:600;">{b.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+    <a href="/logout" style="color:var(--color-accent);font-weight:600;">Log Out</a>
+  </section>
+</Layout>

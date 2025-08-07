@@ -1,0 +1,36 @@
+---
+export function getStaticPaths() {
+  return [];
+}
+import Layout from '../../layouts/Layout.astro';
+import { movies } from '../../mock/movies';
+
+const movieId = Astro.url.pathname.split('/').pop();
+const params = Astro.url.searchParams;
+const showtime = params.get('showtime');
+const seats = params.getAll('seats');
+const movie = movies.find(m => m.id === movieId);
+const pricePerSeat = 11.5;
+const total = seats.length * pricePerSeat;
+
+// This example only shows Stripe UI placeholder. Replace with live Stripe integration.
+---
+
+<Layout>
+  <section style="max-width:540px;margin:0 auto;">
+    <h1>Checkout</h1>
+    <div class="card" style="margin-bottom:1rem;">
+      <div><strong>Movie:</strong> {movie?.title}</div>
+      <div><strong>Showtime:</strong> {showtime ? new Date(showtime).toLocaleString(undefined,{dateStyle:'medium',timeStyle:'short'}) : ''}</div>
+      <div><strong>Seats:</strong> {seats.join(', ') || 'None selected'}</div>
+      <div><strong>Total:</strong> ${total.toFixed(2)}</div>
+    </div>
+    <form id="stripe-payment-form" style="background:var(--color-surface);padding:2rem 1.5rem 1rem 1.5rem;border-radius:var(--radius);box-shadow:var(--shadow);">
+      <!-- Stripe Element will render here (placeholder for now) -->
+      <button type="button" style="width:100%;font-size:1.1rem;margin-top:1.2rem;background:var(--color-accent);">Pay with Stripe</button>
+    </form>
+    <div style="margin-top:2rem;text-align:center;">
+      <a href="/movies" style="color:var(--color-accent);">Back to movies</a>
+    </div>
+  </section>
+</Layout>
