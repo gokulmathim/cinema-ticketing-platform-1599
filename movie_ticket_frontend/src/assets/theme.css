@@ -1,0 +1,78 @@
+:root {
+  --color-primary: #1E2D56;
+  --color-secondary: #F6C700;
+  --color-accent: #EE6C4D;
+  --color-background: #fff;
+  --color-surface: #f8fafc;
+  --color-border: rgba(30, 45, 86, 0.12);
+  --color-text: #23304f;
+  --color-link: var(--color-primary);
+  --color-success: #57C965;
+  --color-error: #E55039;
+  --radius: 0.8rem;
+  --input-height: 2.5rem;
+  --transition: 0.2s cubic-bezier(.4,0,.2,1);
+  --shadow: 0 4px 16px rgba(30,45,86,.10);
+}
+body {
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+}
+a {
+  color: var(--color-link);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+a:hover { color: var(--color-accent);}
+input,
+select,
+textarea {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  padding: 0 1rem;
+  height: var(--input-height);
+  background: #fff;
+  outline: none;
+  transition: border-color var(--transition);
+}
+input:focus,
+select:focus {
+  border: 1.5px solid var(--color-accent);
+}
+button {
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.7rem 1.5rem;
+  min-height: var(--input-height);
+  transition: background var(--transition), box-shadow var(--transition);
+  box-shadow: var(--shadow);
+}
+button:active {
+  background: var(--color-primary);
+}
+header, nav {
+  background: var(--color-primary);
+  color: #fff;
+}
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  margin: 1rem 0;
+}
+h1, h2, h3 {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+@media (max-width: 720px) {
+  .card { padding:1rem; }
+}

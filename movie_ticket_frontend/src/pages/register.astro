@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <section style="max-width:400px;margin:0 auto;">
+    <div class="card">
+      <h1 style="margin-bottom:2rem;">Create Account</h1>
+      <form method="POST" action="/api/register">
+        <label for="name" style="font-weight:500;margin-bottom:.5rem;display:block;">Full Name</label>
+        <input name="name" required style="width:100%;margin-bottom:1rem;" />
+        <label for="email" style="font-weight:500;margin-bottom:.5rem;display:block;">Email</label>
+        <input name="email" type="email" required style="width:100%;margin-bottom:1rem;" />
+        <label for="password" style="font-weight:500;margin-bottom:.5rem;display:block;">Password</label>
+        <input name="password" type="password" required style="width:100%;margin-bottom:1rem;" />
+        <button type="submit" style="width:100%;">Create Account</button>
+      </form>
+      <div style="margin-top:1rem;text-align:center;">
+        <span>Have an account? </span><a href="/login" style="color:var(--color-accent);">Sign in</a>
+      </div>
+    </div>
+  </section>
+</Layout>

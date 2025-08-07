@@ -1,0 +1,30 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { movies } from '../../mock/movies';
+const movieId = Astro.url.pathname.split('/').pop();
+const movie = movies.find(m => m.id === movieId);
+if (!movie) throw new Error("Movie Not Found");
+---
+
+<Layout>
+  <div style="display:flex;gap:2.5rem;flex-wrap:wrap;">
+    <div style="flex:1 1 280px;max-width:340px;">
+      <img src={movie.poster} alt={movie.title} style="width:100%;border-radius:var(--radius);box-shadow:var(--shadow);" />
+    </div>
+    <div style="flex:2 1 340px;">
+      <h1 style="margin-bottom:.3rem;">{movie.title}</h1>
+      <div style="color:var(--color-secondary);font-weight:500;">{movie.genre} &bull; {movie.duration}min &bull; {movie.rating}</div>
+      <p style="color:var(--color-text);margin:1rem 0 2rem 0;">{movie.synopsis}</p>
+      <h2 style="margin:.6rem 0 .4rem 0;">Showtimes</h2>
+      <ul style="list-style:none;padding:0;">
+        {movie.showtimes.map(s => (
+          <li style="margin-bottom:.6rem;">
+            <a href={`/book/${movie.id}?showtime=${encodeURIComponent(s)}`} style="background:var(--color-primary);color:#fff;padding:.8rem 2.2rem;border-radius:var(--radius);text-decoration:none;font-weight:600;">
+              {new Date(s).toLocaleString(undefined, { dateStyle:'medium', timeStyle:'short'})}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</Layout>

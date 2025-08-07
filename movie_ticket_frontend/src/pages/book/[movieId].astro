@@ -1,0 +1,44 @@
+---
+export function getStaticPaths() {
+  return [];
+}
+import Layout from '../../layouts/Layout.astro';
+import { movies } from '../../mock/movies';
+const movieId = Astro.url.pathname.split('/').pop();
+const showtime = Astro.url.searchParams.get('showtime');
+const movie = movies.find(m => m.id === movieId);
+const rows = 5, cols = 8; // Demo seat layout
+let reservedSeats = ['A1', 'A2', 'B4', 'C5', 'E8']; // Placeholder, will come from backend
+---
+
+<Layout>
+  <section style="max-width:540px;margin:0 auto;">
+    <h1 style="margin-bottom:.3rem;">Book Seats: {movie?.title}</h1>
+    <div style="margin-bottom:1rem;color:var(--color-secondary);">
+      <b>Showtime:</b> {showtime ? new Date(showtime).toLocaleString(undefined,{dateStyle:'medium',timeStyle:'short'}) : ''}
+    </div>
+    <form action={`/checkout/${movieId}`} method="GET" style="background:var(--color-surface);padding:1.2rem 2rem;border-radius:var(--radius);box-shadow:var(--shadow);">
+      <input type="hidden" name="showtime" value={showtime} />
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div id="screen" style="width:85%;height:.5rem;background:var(--color-border);margin-bottom:.9rem;border-radius:.5rem;"></div>
+        <div id="seatmap" style="display:grid;grid-template-columns:repeat(8,2.5rem);gap:.45rem;">
+          {Array.from({length:rows*cols}).map((_,i) => {
+            const row = String.fromCharCode(65 + Math.floor(i/cols));
+            const col = 1 + (i % cols);
+            const seatId = `${row}${col}`;
+            const reserved = reservedSeats.includes(seatId);
+            return (
+              <label style={reserved ? "opacity:.4;" : "cursor:pointer"}>
+                <input type="checkbox" name="seats" value={seatId} disabled={reserved} style="display:none;" />
+                <span style="display:block;width:2.3rem;height:2.3rem;border-radius:.6rem;background:var(--color-secondary);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);margin-bottom:.25rem;font-weight:600;font-size:1rem;">
+                  {seatId}
+                </span>
+              </label>
+            );
+          })}
+        </div>
+        <button type="submit" style="margin-top:1.5rem;width:100%;">Continue to Checkout</button>
+      </div>
+    </form>
+  </section>
+</Layout>
