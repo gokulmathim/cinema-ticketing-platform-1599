@@ -1,8 +1,9 @@
-// eslint.config.mjs
 import js from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
+// PUBLIC_INTERFACE
+// ESLint config for Astro project -- ignores build dirs/dist and .astro types
 export default [
   js.configs.recommended,
 
@@ -20,7 +21,6 @@ export default [
       },
     },
     rules: {
-      // Example custom rules for TS
       '@typescript-eslint/no-unused-vars': ['warn'],
       '@typescript-eslint/explicit-function-return-type': 'off',
     },
@@ -42,5 +42,13 @@ export default [
       'no-console': 'off',
       'eqeqeq': ['error', 'always'],
     },
+  },
+
+  // Ignore build output and generated type folders
+  {
+    ignores: [
+      'dist/**',
+      '.astro/**',
+    ],
   },
 ];

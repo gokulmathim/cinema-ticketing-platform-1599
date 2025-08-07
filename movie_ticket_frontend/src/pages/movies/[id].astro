@@ -1,7 +1,19 @@
 ---
+import { movies } from '../../mock/movies.js';
+
+/**
+ * PUBLIC_INTERFACE
+ * getStaticPaths is required by Astro for dynamic routes
+ * Generates paths for all movies in the mock data
+ */
+export function getStaticPaths() {
+  return movies.map(m => ({
+    params: { id: m.id }
+  }));
+}
+
 import Layout from '../../layouts/Layout.astro';
-import { movies } from '../../mock/movies';
-const movieId = Astro.url.pathname.split('/').pop();
+const movieId = Astro.props.id;
 const movie = movies.find(m => m.id === movieId);
 if (!movie) throw new Error("Movie Not Found");
 ---
