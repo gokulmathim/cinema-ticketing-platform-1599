@@ -1,1 +1,3 @@
-# cinema-ticketing-platform-1599
+# Project Repository
+
+This is the initial README file for the project.
